@@ -1,0 +1,38 @@
+# Permalinks
+permalink:           pretty
+
+# Setup
+title:               Po-Yan Tsang's Blog
+tagline:             Some Blog that May or May Not be Related to Data Science 
+url:                 http://pytgit.github.io
+paginate:            2
+baseurl:             ""
+
+# Assets
+#
+# We specify the directory for Jekyll so we can use @imports.
+sass:
+  sass_dir:          _sass
+  style:            :compressed
+
+# About/contact
+author:
+  name:              Po-Yan Tsang
+  url:               https://twitter.com/poyantsang
+  email:             someemail@somemail.com
+
+# Custom vars
+version:             2.0.0
+github:
+  repo:              https://github.com/pytgit
+
+# Gems
+gems:
+  - jekyll-paginate
+  - jekyll-gist
+
+# Page List
+pages_list:       
+  About: '/about'
+  Archive: '/archive'
+  Feed: '/index.html'
