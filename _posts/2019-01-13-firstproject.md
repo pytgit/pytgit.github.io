@@ -7,7 +7,7 @@ title: First Project- NYC MTA Data
 
 -----
 
-### The data sources
+### The Data Sources
 - We found MTA turnstile data at [https://catalog.data.gov](https://catalog.data.gov/dataset/turnstile-usage-data-2018) with a quick google search. It's a pretty large data set, with ~10 million rows.
 - We also grabbed the median income per zip codes in NYC from Census data for 2017.
 - To figure out zip codes for the stations, we got a list of NYC MTA subway stations with names and corresponding geocodes, and then used Google API to find zip codes for the corresponding geocodes.
