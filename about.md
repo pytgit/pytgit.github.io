@@ -3,28 +3,12 @@ layout: page
 title: About
 ---
 
-<p class="message">
-  Hey there! This page is included as an example. Feel free to customize it for your own use upon downloading. Carry on!
-</p>
+## About
 
-In the novel, *The Strange Case of Dr. Jekyll and Mr. Hyde*, Mr. Poole is Dr. Jekyll's virtuous and loyal butler. Similarly, Poole is an upstanding and effective butler that helps you build Jekyll themes. It's made by [@mdo](https://twitter.com/mdo).
+*Learn. Data. Learn.* is about my adventures in learning data science.
 
-There are currently two themes built on Poole:
+-----
 
-* [Hyde](http://hyde.getpoole.com)
-* [Lanyon](http://lanyon.getpoole.com)
+I have been a product manager in both large software enterprise and start up for the past 14 years. It's been a great rewarding experience, learning from really smart people, delivering software that millions of people use. However, during the course of my career, I also inadvertently get drawn to opportunities to write code even though I am not in a developer role. I also greatly enjoy digging into available product data to help make product decisions. As I see more software products making use of machine learning, I can't help but want to learn more about data science and machine learning.
 
-Learn more and contribute on [GitHub](https://github.com/poole).
-
-## Setup
-
-Some fun facts about the setup of this project include:
-
-* Built for [Jekyll](http://jekyllrb.com)
-* Developed on GitHub and hosted for free on [GitHub Pages](https://pages.github.com)
-* Coded with [Sublime Text 2](http://sublimetext.com), an amazing code editor
-* Designed and developed while listening to music like [Blood Bros Trilogy](https://soundcloud.com/maddecent/sets/blood-bros-series)
-
-Have questions or suggestions? Feel free to [open an issue on GitHub](https://github.com/poole/poole/issues/new) or [ask me on Twitter](https://twitter.com/mdo).
-
-Thanks for reading!
+After taking a couple of data science courses on Coursera, I decided to make the jump in 2019 and enroll in a data science bootcamp at Metis to further learn what it takes to be a data scientist. No matter what career path I decide to take afterwards,  this is going to be a ton of fun for me, and I will be blogging as I go. I hope you have fun reading about it too.
