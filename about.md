@@ -3,8 +3,6 @@ layout: page
 title: About
 ---
 
-## About
-
 *Learn. Data. Learn.* is about my adventures in learning data science.
 
 -----
