@@ -2,8 +2,8 @@
 permalink:           pretty
 
 # Setup
-title:               Po-Yan Tsang's Blog
-tagline:             Some Blog that May or May Not be Related to Data Science 
+title:               Learn. Data. Learn.
+tagline:             Adventures in data science from a noob 
 url:                 http://pytgit.github.io
 paginate:            2
 baseurl:             ""
@@ -18,8 +18,8 @@ sass:
 # About/contact
 author:
   name:              Po-Yan Tsang
-  url:               https://twitter.com/poyantsang
-  email:             someemail@somemail.com
+  url:               https://pytgit.github.io
+  email:             py_tsang@yahoo.com
 
 # Custom vars
 version:             2.0.0
@@ -32,7 +32,7 @@ gems:
   - jekyll-gist
 
 # Page List
-pages_list:       
+pages_list:
   About: '/about'
   Archive: '/archive'
   Feed: '/index.html'
