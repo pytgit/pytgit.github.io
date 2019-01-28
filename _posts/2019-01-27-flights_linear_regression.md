@@ -17,7 +17,7 @@ As the data set is quite huge (~5.3 million rows), the data set is randomly samp
 
 Initially the following features were considered: 'Inbound Delay', 'Month', 'Airport Departure Volume', 'Plane Turnaround Time','Departure Time','Temperature', 'Wind Speed', 'Precipitation'.
 
-Then some features get zero-ed out in Lasso regressions and are removed, specifically: 'Month', 'Airport Departure Volume', 'Plane Turnaround Time', 'Temperature', 'Wind Speed' is further eliminated due to causing lower R2 score (indicating overfitting).
+Then some features get zero-ed out in Lasso regressions and are removed, specifically: 'Month', 'Airport Departure Volume', 'Plane Turnaround Time', 'Temperature'. 'Wind Speed' is further eliminated due to causing lower R2 score (indicating overfitting).
 
 So three features remains to be used in model: 'Inbound Delay', 'Departure Time', 'Precipitation'.
 
