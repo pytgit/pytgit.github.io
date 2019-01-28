@@ -13,12 +13,16 @@ Delayed aircraft are estimated to have cost the airlines several billion dollars
 * Historic airport weather data from Iowa State University website: [Iowa State Univerity Mesonet](https://mesonet.agron.iastate.edu/request/download.phtml?network=WA_ASOS)
 
 ## Methodology Used
-As the data set is quite huge (~5.3 million rows), the data set is randomly sampled to 50,000 rows for quicker modeling time. Cross-validation with 5 folds is used on 80% of the data set to select features and model parameters. [(code here)](Model_training_and_test.ipynb)
+As the data set is quite huge (~5.3 million rows), the data set is randomly sampled to 50,000 rows for quicker modeling time. Cross-validation with 5 folds is used on 80% of the data set to select features and model parameters.
+
 Initially the following features were considered: 'Inbound Delay', 'Month', 'Airport Departure Volume', 'Plane Turnaround Time','Departure Time','Temperature', 'Wind Speed', 'Precipitation'.
-Then some features get zero-ed out in Lasso regressions and are removed, specifically: 'Month', 'Airport Departure Volume', 'Plane Turnaround Time', 'Temperature'
-''Wind Speed' is further eliminated due to causing lower R2 score (indicating overfitting)
-So three features remains to be used in model: 'Inbound Delay', 'Departure Time', 'Precipitation'
+
+Then some features get zero-ed out in Lasso regressions and are removed, specifically: 'Month', 'Airport Departure Volume', 'Plane Turnaround Time', 'Temperature', 'Wind Speed' is further eliminated due to causing lower R2 score (indicating overfitting).
+
+So three features remains to be used in model: 'Inbound Delay', 'Departure Time', 'Precipitation'.
+
 No feature transform were needed when checking the residual plots, but y (Departure Delay) is noticed to be heavily left skewed and so is being log transformed before training.
+
 RidgeCV, LassoCV, ElasticNet Models were used in training, and RidgeCV was seen to have slightly better R2 scoring, and therefore chosen.
 
 ## Results
