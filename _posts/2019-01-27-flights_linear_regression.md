@@ -3,17 +3,17 @@ layout: post
 title: Flight Delay Prediction using Linear Regression
 ---
 
-Delayed aircraft are estimated to have cost the airlines several billion dollars in additional expense <sup>[1]</sup>, not to mention the uncertainty it adds to a passenger's travels. The goals of this project is to  predict flight delay time using linear regression based on 2017 United States flights data. Through the analysis, it should also shine a light on factors that impact flight delay time, and help others to develop mitigating strategies.
+Delayed aircraft are estimated to have cost the airlines several billion dollars in additional expense <sup>[1]</sup>, not to mention the uncertainty it adds to a passenger's travels. The goals of this project as part of the Metis week 2 & 3 project is to  predict flight delay time using linear regression based on 2017 United States flights data. Through the analysis, it should also shine a light on factors that impact flight delay time, and help others to develop mitigating strategies.
 
 -----
 
 ## Data Sources
 * 2017 Flight delay and cancellation data from [Bureau of Transportation Statistics](https://www.transtats.bts.gov/DL_SelectFields.asp?Table_ID=236)
-* 2015 airport volume data scraped from Bureau of Transportation Statistics website: [Bureau of Transportation Statistics](https://www.transtats.bts.gov/airports.asp?pn=1)
+* 2015 airport volume data scraped from Bureau of Transportation Statistics website: [Bureau of Transportation Statistics](https://www.transtats.bts.gov/airports.asp?pn=1), using beautifulsoup](https://pypi.org/project/beautifulsoup4/) [code here](Web_scraping_airport_volume.ipynb)
 * Historic airport weather data from Iowa State University website: [Iowa State Univerity Mesonet](https://mesonet.agron.iastate.edu/request/download.phtml?network=WA_ASOS)
 
 ## Methodology Used
-As the data set is quite huge (~5.3 million rows), the data set is randomly sampled to 50,000 rows for quicker modeling time. Cross-validation with 5 folds is used on 80% of the data set to select features and model parameters.
+As the data set is quite huge (~5.3 million rows), the data set is randomly sampled to 50,000 rows for quicker modeling time in Python. Cross-validation with 5 folds is used on 80% of the data set to select features and model parameters.
 
 Initially the following features were considered: 'Inbound Delay', 'Month', 'Airport Departure Volume', 'Plane Turnaround Time','Departure Time','Temperature', 'Wind Speed', 'Precipitation'.
 
