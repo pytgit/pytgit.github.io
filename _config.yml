@@ -37,4 +37,4 @@ pages_list:
   Archive: '/archive'
   Feed: '/index.html'
 
-theme: jekyll-theme-slate
+theme: jekyll-theme-dinky
