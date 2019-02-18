@@ -17,8 +17,11 @@ Here is the github repo for this project: [link](https://github.com/pytgit/start
 
 ## Methodology Used
 From the [Crunchbase 2013 snapshot data](https://data.crunchbase.com/docs/2013-snapshot) site:
+
     * [MySql backup files](https://dev.mysql.com/doc/refman/8.0/en/mysqldump.html) are downloaded
+
     * Backup files are restored as MySQL databases
+
     * MySQL database is migrated to local Postgres DB for further processing and analysis using [pgloader utility](https://pgloader.io/)
 
 Initially I tried to run model on data including all funding rounds information known now for a particular company. For example, for company A, I would have a row with total raised amount, and number of total rounds, and number of investors thus far. The prediction accuracy were really good too!
