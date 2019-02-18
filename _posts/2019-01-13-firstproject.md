@@ -3,9 +3,11 @@ layout: post
 title: First Project- NYC MTA Data
 ---
 
-*MTA Turnstile Data Analysis* is a group project where we are asked to provide recommendations to a non-profit organization to optimize street team positions at New York City MTA subway stations to gather emails and evangelize an upcoming gala event.
+<p align="center">
+  <img src="../images/turnstile.jpg">
+</p>
 
------
+*MTA Turnstile Data Analysis* is a group project where we are asked to provide recommendations to a non-profit organization to optimize street team positions at New York City MTA subway stations to gather emails and evangelize an upcoming gala event.
 
 ### The Data Sources
 - We found MTA turnstile data at [https://catalog.data.gov](https://catalog.data.gov/dataset/turnstile-usage-data-2018) with a quick google search. It's a pretty large data set, with ~10 million rows.
