@@ -6,7 +6,7 @@ title: What genre is this movie? (An NLP Project)
   <img src="../images/popcorn.jpg">
 </p>
 
-We all love watching movies. It's helpful to use genre as a way to decide what movie to watch, without reading full movie descriptions. But it's not always easy to identify genre of a movie, without people watching or at least reading the description of a movie. What if there's a way to identify genre using natural language processing, based on movie plot? Possible applications could be to predict genre when there is none available. Perhaps more common though, is to help identify alternative applicable genres even when there is one identified.
+We all love watching movies. It's helpful to use genre as a way to decide what movie to watch, without reading full movie descriptions. But it's not always easy to identify genre of a movie. Even if one is already identified, it may not be one you agree with. What if there's a way to identify genre using natural language processing, based on movie plot? Possible applications could be to predict genre when there is none available. Perhaps more common though, is to help identify alternative applicable genres even when there is one identified.
 
 ## Data Source
 [Wikipedia movie plots data from Kaggle](https://www.kaggle.com/jrobischon/wikipedia-movie-plots)
