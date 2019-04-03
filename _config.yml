@@ -1,40 +1,45 @@
-# Permalinks
-permalink:           pretty
+# Site settings
+title: Po-Yan Tsang
+default_author: Po-Yan Tsang
+description: "Adventures in data science and misc fun things"  # used in site head
 
-# Setup
-title:               Learn. Data. Learn.
-tagline:             Adventures in data science from a noob 
-url:                 http://pytgit.github.io
-paginate:            2
-baseurl:             ""
+# register on google analytics and replace this token
+google_analytics: UA-137588582-1
+# disque comments are broken if you send http:// along with url, this url is same as the one given on disqus
+# Deleting the value would remove it from footer.
+disqus_url: https://pyblogs.disqus.com
+disqus_id: disqus_NoYoknEDDO
+# register on feedburner and replace this url. Deleting the value will remove it from footer.
+feedburner_url:
 
-# Assets
-#
-# We specify the directory for Jekyll so we can use @imports.
-sass:
-  sass_dir:          _sass
-  style:            :compressed
+# footer details. Deleting the value would remove it from footer.
+github_username:  pytgit
+facebook_username:
+email:
+stackoverflow_username:
+twitter_username :
+linkedin_username : po-yan-tsang
+keybase_username :
+copyright_name: Po-Yan Tsang
+rss : false
 
-# About/contact
-author:
-  name:              Po-Yan Tsang
-  url:               https://pytgit.github.io
-  email:             py_tsang@yahoo.com
+# used for portfolio on home page
+collections:
+  - portfolio
 
-# Custom vars
-version:             2.0.0
-github:
-  repo:              https://github.com/pytgit
+# used to estimate reading time
+wpm: 150
 
-# Gems
-gems:
-  - jekyll-paginate
-  - jekyll-gist
+# Build settings
+markdown: kramdown
+highlighter: rouge
+exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
+port: 8888
+permalink: /blog/:title
 
-# Page List
-pages_list:
-  About: '/about'
-  Archive: '/archive'
-  Feed: '/index.html'
+# jekyll-paginate. for paginating blog posts.
+paginate: 5
+paginate_path: blog/page:num
 
-theme: jekyll-theme-dinky
+# gem dependencies
+plugins: [jekyll-paginate, jekyll-feed, jekyll-gist]

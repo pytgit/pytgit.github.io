@@ -1,13 +1,14 @@
 ---
 layout: post
-title: Startup Billion Dollars or Bust?
+title: Startups- Billion Dollars or Bust?
+subtitle:   "Fun with startups"
+date:       2019-02-16
+author:     "Po-Yan Tsang"
+header-img: "img/posts/startup.jpg"
+comments: true
+tags: [ machineLearning ]
 ---
-<p align="center">
-  <img src="../images/startup.jpg">
-</p>
-
-As a potential investor or hire, how can you assess whether to further invest or join a startup? This project predicts type of status (acquisition, IPO, close, operating) for a company given current funding and company information.
-This can help potential investors or employees to look out factors to assess a startup and the potential exit path.
+As a potential investor or hire, how can you assess whether to further invest or join a startup? This project predicts type of status (acquisition, IPO, close, operating) for a company given current funding and company information. This can help potential investors or employees to look out factors to assess a startup and the potential exit path.
 
 ## Data Source
 [Crunchbase 2013 Snapshot © 2013](https://data.crunchbase.com/docs/2013-snapshot)
@@ -28,7 +29,7 @@ But then, I thought, what the model is trained on is similar to saying, hey I kn
 So, I ended up wrangling the data such that training data represent yearly snapshot of a company’s funding information, so that the model is more about predicting status based on current known yearly status: [(code here)](https://github.com/pytgit/startup-classification/blob/master/Clean%20data%20and%20feature%20engineering.ipynb)
 
 <p align="center">
-  <img width="1000" height="300" src="../images/data_wrangling.png">
+  <img width="1000" height="300" src="../img/posts/data_wrangling.png">
 </p>
 
 After getting the data into shape, I noticed the predictor classes are highly imbalanced, so I further resampled the data for better model fitting. Different sampling methods were experimented with, including random undersampling, random oversampling. SMOTEENN was selected to in the end because it yielded best results.

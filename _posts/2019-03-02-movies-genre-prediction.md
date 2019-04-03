@@ -1,10 +1,13 @@
 ---
 layout: post
-title: What genre is this movie? (An NLP Project)
+title: What genre is this movie?
+subtitle:   "Fun with movies (an NLP Project)"
+date:       2019-03-02
+author:     "Po-Yan Tsang"
+header-img: "img/posts/popcorn.jpg"
+comments: true
+tags: [ machineLearning ]
 ---
-<p align="center">
-  <img src="../images/popcorn.jpg">
-</p>
 
 We all love watching movies. It's helpful to use genre as a way to decide what movie to watch, without reading full movie descriptions. But it's not always easy to identify genre of a movie. Even if one is already identified, it may not be one you agree with. What if there's a way to identify genre using natural language processing, based on movie plot? Possible applications could be to predict genre when there is none available. Perhaps more common though, is to help identify alternative applicable genres even when there is one identified.
 
@@ -49,7 +52,7 @@ Python is used for data acquisition, cleaning and modeling. Specific python libr
 ## Results
 * Random Forest yielded the best F1 weighted score of 0.43 on test data set
 <p align="center">
-  <img width="700" height="400" src="../images/movies_results.png">
+  <img width="700" height="400" src="../img/posts/movies_results.png">
 </p>
 * As seen from the results, "Sci-Fi" and "Western" got best prediction results, but "Drama", "Comedy" were among the worst. Note drama and comedy also had the largest count of movies, so it looks like there is opportunity to better break down those genres into sub-categories that could yield better prediction results
 

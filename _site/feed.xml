@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="http://localhost:8888/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:8888/" rel="alternate" type="text/html" /><updated>2019-04-03T15:44:47-07:00</updated><id>http://localhost:8888/feed.xml</id><title type="html">Po-Yan Tsang</title><subtitle>Adventures in data science and misc fun things</subtitle><entry><title type="html">What genre is this movie?</title><link href="http://localhost:8888/blog/movies-genre-prediction" rel="alternate" type="text/html" title="What genre is this movie?" /><published>2019-03-02T00:00:00-08:00</published><updated>2019-03-02T00:00:00-08:00</updated><id>http://localhost:8888/blog/movies-genre-prediction</id><content type="html" xml:base="http://localhost:8888/blog/movies-genre-prediction">&lt;p&gt;We all love watching movies. It’s helpful to use genre as a way to decide what movie to watch, without reading full movie descriptions. But it’s not always easy to identify genre of a movie. Even if one is already identified, it may not be one you agree with. What if there’s a way to identify genre using natural language processing, based on movie plot? Possible applications could be to predict genre when there is none available. Perhaps more common though, is to help identify alternative applicable genres even when there is one identified.&lt;/p&gt;
+
+&lt;h2 id=&quot;data-source&quot;&gt;Data Source&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.kaggle.com/jrobischon/wikipedia-movie-plots&quot;&gt;Wikipedia movie plots data from Kaggle&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;(34886 movies)&lt;/p&gt;
+
+&lt;h2 id=&quot;code-at-github&quot;&gt;Code at Github&lt;/h2&gt;
+&lt;p&gt;Here is the github repo for this project: &lt;a href=&quot;https://github.com/pytgit/movies_genre_nlp&quot;&gt;link&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;tools-used&quot;&gt;Tools Used&lt;/h2&gt;
+&lt;p&gt;Python is used for data acquisition, cleaning and modeling. Specific python libraries used include:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Modeling: scikit-learn, imbalanced-learn&lt;/li&gt;
+  &lt;li&gt;Natural language processing:
+    &lt;ul&gt;
+      &lt;li&gt;NTLK: for sentiment analysis&lt;/li&gt;
+      &lt;li&gt;Spacy: for text preprocessing and cleaning&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;methodology-used&quot;&gt;Methodology Used&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;Genre clean-up:
+    &lt;ul&gt;
+      &lt;li&gt;Data initially had as many as 2264 genres. Many were either too granular or mis-spellings, so some clean-up is needed. For example, the following were re-mapped as “comedy” genre:
+        &lt;blockquote&gt;
+          &lt;p&gt;‘comedey’, ‘spoof’, ‘standup’, ‘slapstick’, ‘parody’&lt;/p&gt;
+        &lt;/blockquote&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Low-count genre entries were removed (kept top 95%)&lt;/li&gt;
+      &lt;li&gt;This clean-up process resulted in 12 genres&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Data is randomly sampled from ~30,000 to 10,000 with weights biased towards lower count genres for NLP processing and training speed.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Each sentence in a movie plot text is then evaluated for sentiment using NTLK’s vader analyzer. The results are then averaged to be treated as a sentiment feature for that movie entry.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;(See Jupyter notebook for steps 1-3: &lt;a href=&quot;https://github.com/pytgit/movies_genre_nlp/blob/master/Movies%20-%20clean%20and%20feature%20extraction.ipynb&quot;&gt;(code here)&lt;/a&gt; )&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;Topic modeling is used to reduce the dimensionality of word features to be used in classification training. Before topic modeling can be done, stopwords, punctuations, and entities were removed from the movie plot text. The text is also tokenized and lemmatized.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Both Non-negative Matrix Factorization (NMF) and Latent Semantic Analysis (LSA) topic modeling were tried. They gave similar results when used in supervised classification modeling later, but I decided to use NMF in the final model because the topics were more interpretable than the LSA ones. THE NMF yielded 25 topics were seemed to be representative of certain genres. For example:&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Topic 1	(Romance): love, fall love, fall, marry, marriage, girl, meet, friend, wedding, story&lt;/li&gt;
+      &lt;li&gt;Topic 2	 (Sci-Fi): alien, planet, spaceship, human, saucer, destroy, space, base, ship, scientist&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;(See Jupyter notebook for steps 5,6: &lt;a href=&quot;https://github.com/pytgit/movies_genre_nlp/blob/master/Movies-%20topic%20modeling.ipynb&quot;&gt;(code here)&lt;/a&gt; )&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;For final genre prediction, Random Forest, KNN and Gradient Boost. Random Forest gave slighly better results than GradientBoost so that was chosen as final model. See Jupyter notebook for steps &lt;a href=&quot;https://github.com/pytgit/movies_genre_nlp/blob/master/Supervised%20Model%20Training.ipynb&quot;&gt;(code here)&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&quot;results&quot;&gt;Results&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Random Forest yielded the best F1 weighted score of 0.43 on test data set&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p align=&quot;center&quot;&gt;
+  &lt;img width=&quot;700&quot; height=&quot;400&quot; src=&quot;../img/posts/movies_results.png&quot; /&gt;
+&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;As seen from the results, “Sci-Fi” and “Western” got best prediction results, but “Drama”, “Comedy” were among the worst. Note drama and comedy also had the largest count of movies, so it looks like there is opportunity to better break down those genres into sub-categories that could yield better prediction results&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;conclusions&quot;&gt;Conclusions&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Genre categorization impacts the prediction results so more analysis on optimal categorization would be helpful&lt;/li&gt;
+  &lt;li&gt;Multi-label classification instead of multi-class classification is also a great next step to provide better insights for potential applications as movies often can belong to multiple genres&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>Po-Yan Tsang</name></author><category term="machineLearning" /><summary type="html">We all love watching movies. It’s helpful to use genre as a way to decide what movie to watch, without reading full movie descriptions. But it’s not always easy to identify genre of a movie. Even if one is already identified, it may not be one you agree with. What if there’s a way to identify genre using natural language processing, based on movie plot? Possible applications could be to predict genre when there is none available. Perhaps more common though, is to help identify alternative applicable genres even when there is one identified.</summary></entry><entry><title type="html">Startups- Billion Dollars or Bust?</title><link href="http://localhost:8888/blog/startup_classification" rel="alternate" type="text/html" title="Startups- Billion Dollars or Bust?" /><published>2019-02-16T00:00:00-08:00</published><updated>2019-02-16T00:00:00-08:00</updated><id>http://localhost:8888/blog/startup_classification</id><content type="html" xml:base="http://localhost:8888/blog/startup_classification">&lt;p&gt;As a potential investor or hire, how can you assess whether to further invest or join a startup? This project predicts type of status (acquisition, IPO, close, operating) for a company given current funding and company information. This can help potential investors or employees to look out factors to assess a startup and the potential exit path.&lt;/p&gt;
+
+&lt;h2 id=&quot;data-source&quot;&gt;Data Source&lt;/h2&gt;
+&lt;p&gt;&lt;a href=&quot;https://data.crunchbase.com/docs/2013-snapshot&quot;&gt;Crunchbase 2013 Snapshot © 2013&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;code-at-github&quot;&gt;Code at Github&lt;/h2&gt;
+&lt;p&gt;Here is the github repo for this project: &lt;a href=&quot;https://github.com/pytgit/startup-classification&quot;&gt;link&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;methodology-used&quot;&gt;Methodology Used&lt;/h2&gt;
+&lt;p&gt;From the &lt;a href=&quot;https://data.crunchbase.com/docs/2013-snapshot&quot;&gt;Crunchbase 2013 snapshot data&lt;/a&gt; site:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://dev.mysql.com/doc/refman/8.0/en/mysqldump.html&quot;&gt;MySql backup files&lt;/a&gt; are downloaded&lt;/li&gt;
+  &lt;li&gt;Backup files are restored as MySQL databases&lt;/li&gt;
+  &lt;li&gt;MySQL database is migrated to local Postgres DB for further processing and analysis using &lt;a href=&quot;https://pgloader.io/&quot;&gt;pgloader utility&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Initially I tried to run model on data including all funding rounds information known now for a particular company. For example, for company A, I would have a row with total raised amount, and number of total rounds, and number of investors thus far. The prediction accuracy were really good too!&lt;/p&gt;
+
+&lt;p&gt;But then, I thought, what the model is trained on is similar to saying, hey I know this company is going to get acquired and here’s what we know at time of acquisition. This is not really what I want to predict: I want to know given what we know &lt;em&gt;so far&lt;/em&gt; for a company, if it’s likely to get acquired or not in the future.&lt;/p&gt;
+
+&lt;p&gt;So, I ended up wrangling the data such that training data represent yearly snapshot of a company’s funding information, so that the model is more about predicting status based on current known yearly status: &lt;a href=&quot;https://github.com/pytgit/startup-classification/blob/master/Clean%20data%20and%20feature%20engineering.ipynb&quot;&gt;(code here)&lt;/a&gt;&lt;/p&gt;
+
+&lt;p align=&quot;center&quot;&gt;
+  &lt;img width=&quot;1000&quot; height=&quot;300&quot; src=&quot;../img/posts/data_wrangling.png&quot; /&gt;
+&lt;/p&gt;
+
+&lt;p&gt;After getting the data into shape, I noticed the predictor classes are highly imbalanced, so I further resampled the data for better model fitting. Different sampling methods were experimented with, including random undersampling, random oversampling. SMOTEENN was selected to in the end because it yielded best results.&lt;/p&gt;
+
+&lt;p&gt;I tried multiple classifiers: KNN, Logistic Regression, Gradient Boosting, Naive Bayes, Random Forest. Gradient Boosting yielded the best initial results, so further parameter tweaking was attempted on training set.&lt;/p&gt;
+
+&lt;p&gt;In the end, the following features were used:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Feature (Yearly Snapshots)&lt;/th&gt;
+      &lt;th&gt;Type&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Days active&lt;/td&gt;
+      &lt;td&gt;Numerical&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Number of investors&lt;/td&gt;
+      &lt;td&gt;Numerical&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Total funding raised&lt;/td&gt;
+      &lt;td&gt;Numerical&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Number of funding rounds&lt;/td&gt;
+      &lt;td&gt;Numerical&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Category&lt;/td&gt;
+      &lt;td&gt;Categorical&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Region&lt;/td&gt;
+      &lt;td&gt;Categorical&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&quot;results&quot;&gt;Results&lt;/h2&gt;
+&lt;p&gt;Gradient Boosting yielded the best F1-macro score of 0.43 on test data set.&lt;/p&gt;
+
+&lt;p&gt;The model, however, heavily biased towards ‘operating’ status prediction.&lt;/p&gt;
+
+&lt;p&gt;See Jupyter notebook for steps to get to results &lt;a href=&quot;https://github.com/pytgit/startup-classification/blob/master/Model%20training.ipynb&quot;&gt;(code here)&lt;/a&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusions&quot;&gt;Conclusions&lt;/h2&gt;
+&lt;p&gt;Funding information have some but not strong predicting power for predicting close, IPO, or acquired statuses.&lt;/p&gt;
+
+&lt;p&gt;For future work, I’d like to explore having more heavy weights on predicting “closed” status correctly during training to help perspective employees and investors to especially avoid companies heading to closure.&lt;/p&gt;
+
+&lt;p&gt;Also, expanding data set size, and using data sources beyond Crunchbase with additional predictive features may help improve results: e.g. company growth and performance data such as company revenue and number of employees.&lt;/p&gt;</content><author><name>Po-Yan Tsang</name></author><category term="machineLearning" /><summary type="html">As a potential investor or hire, how can you assess whether to further invest or join a startup? This project predicts type of status (acquisition, IPO, close, operating) for a company given current funding and company information. This can help potential investors or employees to look out factors to assess a startup and the potential exit path.</summary></entry><entry><title type="html">Flight Delay Prediction using Linear Regression</title><link href="http://localhost:8888/blog/flights_linear_regression" rel="alternate" type="text/html" title="Flight Delay Prediction using Linear Regression" /><published>2019-01-27T00:00:00-08:00</published><updated>2019-01-27T00:00:00-08:00</updated><id>http://localhost:8888/blog/flights_linear_regression</id><content type="html" xml:base="http://localhost:8888/blog/flights_linear_regression">&lt;p&gt;Delayed aircraft are estimated to have cost the airlines several billion dollars in additional expense &lt;sup&gt;[1]&lt;/sup&gt;, not to mention the uncertainty it adds to a passenger’s travels. The goals of this project as part of the Metis week 2 &amp;amp; 3 project is to  predict flight delay time using linear regression based on 2017 United States flights data. Through the analysis, it should also shine a light on factors that impact flight delay time, and help others to develop mitigating strategies.&lt;/p&gt;
+
+&lt;h2 id=&quot;data-sources&quot;&gt;Data Sources&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;2017 Flight delay and cancellation data from &lt;a href=&quot;https://www.transtats.bts.gov/DL_SelectFields.asp?Table_ID=236&quot;&gt;Bureau of Transportation Statistics&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;2015 airport volume data scraped from Bureau of Transportation Statistics website: &lt;a href=&quot;https://www.transtats.bts.gov/airports.asp?pn=1&quot;&gt;Bureau of Transportation Statistics&lt;/a&gt;, using beautifulsoup](https://pypi.org/project/beautifulsoup4/) &lt;a href=&quot;Web_scraping_airport_volume.ipynb&quot;&gt;code here&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;Historic airport weather data from Iowa State University website: &lt;a href=&quot;https://mesonet.agron.iastate.edu/request/download.phtml?network=WA_ASOS&quot;&gt;Iowa State Univerity Mesonet&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;methodology-used&quot;&gt;Methodology Used&lt;/h2&gt;
+&lt;p&gt;As the data set is quite huge (~5.3 million rows), the data set is randomly sampled to 50,000 rows for quicker modeling time in Python. Cross-validation with 5 folds is used on 80% of the data set to select features and model parameters.&lt;/p&gt;
+
+&lt;p&gt;Initially the following features were considered: ‘Inbound Delay’, ‘Month’, ‘Airport Departure Volume’, ‘Plane Turnaround Time’,’Departure Time’,’Temperature’, ‘Wind Speed’, ‘Precipitation’.&lt;/p&gt;
+
+&lt;p&gt;Then some features get zero-ed out in Lasso regressions and are removed, specifically: ‘Month’, ‘Airport Departure Volume’, ‘Plane Turnaround Time’, ‘Temperature’. ‘Wind Speed’ is further eliminated due to causing lower R2 score (indicating overfitting).&lt;/p&gt;
+
+&lt;p&gt;So three features remains to be used in model: ‘Inbound Delay’, ‘Departure Time’, ‘Precipitation’.&lt;/p&gt;
+
+&lt;p&gt;No feature transform were needed when checking the residual plots, but y (Departure Delay) is noticed to be heavily left skewed and so is being log transformed before training.&lt;/p&gt;
+
+&lt;p&gt;RidgeCV, LassoCV, ElasticNet Models were used in training, and RidgeCV was seen to have slightly better R2 scoring, and therefore chosen.&lt;/p&gt;
+
+&lt;p&gt;For code see Github repository &lt;a href=&quot;https://github.com/pytgit/flight_delay_lin_regression&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;results&quot;&gt;Results&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Ridge linear regression yielded a relatively low R2 score: 0.234&lt;/li&gt;
+  &lt;li&gt;Out of the 3 features used, “Inbound delay” had the best predictive power (coefficient=0.145), compared with “Departure Time (coefficient=0.068), and “Precipitation” (coefficient=0.016)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;conclusions&quot;&gt;Conclusions&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Three factors ‘inbound delay’, “departure time”, “precipitation” are significant predictors of amount of departure delay, but are insufficient to reliably predict departure delay time (low R2 score)&lt;/li&gt;
+  &lt;li&gt;Given the low R2 score, further predictive features should be explored, for example:
+    &lt;ul&gt;
+      &lt;li&gt;Around airport volume or airport “busy-ness” should be explored, for example:
+        &lt;ul&gt;
+          &lt;li&gt;Timeframes around public holidays&lt;/li&gt;
+          &lt;li&gt;Hourly volume of an airport around flight departure time&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;Further breakdown of how specific airline carrier can impact delay&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;references&quot;&gt;References&lt;/h2&gt;
+&lt;ol&gt;
+  &lt;li&gt;Airlines for America. http://airlines.org/dataset/per-minute-cost-of-delays-to-u-s-airlines/&lt;/li&gt;
+&lt;/ol&gt;</content><author><name>Po-Yan Tsang</name></author><category term="machineLearning" /><summary type="html">Delayed aircraft are estimated to have cost the airlines several billion dollars in additional expense [1], not to mention the uncertainty it adds to a passenger’s travels. The goals of this project as part of the Metis week 2 &amp;amp; 3 project is to predict flight delay time using linear regression based on 2017 United States flights data. Through the analysis, it should also shine a light on factors that impact flight delay time, and help others to develop mitigating strategies. Data Sources 2017 Flight delay and cancellation data from Bureau of Transportation Statistics 2015 airport volume data scraped from Bureau of Transportation Statistics website: Bureau of Transportation Statistics, using beautifulsoup](https://pypi.org/project/beautifulsoup4/) code here Historic airport weather data from Iowa State University website: Iowa State Univerity Mesonet Methodology Used As the data set is quite huge (~5.3 million rows), the data set is randomly sampled to 50,000 rows for quicker modeling time in Python. Cross-validation with 5 folds is used on 80% of the data set to select features and model parameters. Initially the following features were considered: ‘Inbound Delay’, ‘Month’, ‘Airport Departure Volume’, ‘Plane Turnaround Time’,’Departure Time’,’Temperature’, ‘Wind Speed’, ‘Precipitation’. Then some features get zero-ed out in Lasso regressions and are removed, specifically: ‘Month’, ‘Airport Departure Volume’, ‘Plane Turnaround Time’, ‘Temperature’. ‘Wind Speed’ is further eliminated due to causing lower R2 score (indicating overfitting). So three features remains to be used in model: ‘Inbound Delay’, ‘Departure Time’, ‘Precipitation’. No feature transform were needed when checking the residual plots, but y (Departure Delay) is noticed to be heavily left skewed and so is being log transformed before training. RidgeCV, LassoCV, ElasticNet Models were used in training, and RidgeCV was seen to have slightly better R2 scoring, and therefore chosen. For code see Github repository here. Results Ridge linear regression yielded a relatively low R2 score: 0.234 Out of the 3 features used, “Inbound delay” had the best predictive power (coefficient=0.145), compared with “Departure Time (coefficient=0.068), and “Precipitation” (coefficient=0.016) Conclusions Three factors ‘inbound delay’, “departure time”, “precipitation” are significant predictors of amount of departure delay, but are insufficient to reliably predict departure delay time (low R2 score) Given the low R2 score, further predictive features should be explored, for example: Around airport volume or airport “busy-ness” should be explored, for example: Timeframes around public holidays Hourly volume of an airport around flight departure time Further breakdown of how specific airline carrier can impact delay References Airlines for America. http://airlines.org/dataset/per-minute-cost-of-delays-to-u-s-airlines/</summary></entry><entry><title type="html">NYC MTA Turnstile Data</title><link href="http://localhost:8888/blog/firstproject" rel="alternate" type="text/html" title="NYC MTA Turnstile Data" /><published>2019-01-13T00:00:00-08:00</published><updated>2019-01-13T00:00:00-08:00</updated><id>http://localhost:8888/blog/firstproject</id><content type="html" xml:base="http://localhost:8888/blog/firstproject">&lt;p&gt;&lt;em&gt;MTA Turnstile Data Analysis&lt;/em&gt; is a group project where we are asked to provide recommendations to a non-profit organization to optimize street team positions at New York City MTA subway stations to gather emails and evangelize an upcoming gala event.&lt;/p&gt;
+
+&lt;h3 id=&quot;the-data-sources&quot;&gt;The Data Sources&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;We found MTA turnstile data at &lt;a href=&quot;https://catalog.data.gov/dataset/turnstile-usage-data-2018&quot;&gt;https://catalog.data.gov&lt;/a&gt; with a quick google search. It’s a pretty large data set, with ~10 million rows.&lt;/li&gt;
+  &lt;li&gt;We also grabbed the median income per zip codes in NYC from Census data for 2017.&lt;/li&gt;
+  &lt;li&gt;To figure out zip codes for the stations, we got a list of NYC MTA subway stations with names and corresponding geocodes, and then used Google API to find zip codes for the corresponding geocodes.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;methodology&quot;&gt;Methodology&lt;/h3&gt;
+&lt;p&gt;We dug into the MTA turnsile data, cleaned the data to remove duplicates, bad data, and various things to enable analysis, and then we were able to provide the following analysis:&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Top 10 Subway Stations by annual foot traffic volume for 2018, while also pointing out stations in zipcodes with median household income &amp;gt; 100K
+    &lt;ul&gt;
+      &lt;li&gt;Monthly pattern (which months are best)&lt;/li&gt;
+      &lt;li&gt;Weekly pattern (which day of the week)&lt;/li&gt;
+      &lt;li&gt;Daily pattern (time)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;lessons-learned&quot;&gt;Lessons Learned&lt;/h3&gt;
+&lt;p&gt;As part of the Metis classes, design thinking and a MVP approach was encouraged. I loved that since it’s an approach that is near and dear to my heart. It is something I’ve practiced daily in the past 5+ years at start-up. At a start-up, any product features we can deliver as soon as possible while delivering value to the customers is critical to the survival of the company. However, even with the MVP approach, as a total noob in exploratory data analysis of real world data, of course there are some great lessons learned:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1. Understand your data&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Despite the metadata descriptions that came along with the data, even though we know that the entries and exits are cumulative  and can get reset, HOW and WHEN the numbers get reset turns out to be quite unpredictable and causes a great deal of data that skew the counts and provide confusing results. A lot of effort was needed to figure out a way to filter out the “bad” data.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2. Check results validity early!&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;We didn’t realize the data skew issue above till relatively late in the project since guess what, we didn’t try to check if our initial results make sense until about half way through the project. It’s only when we start questioning whether the top 10 stations could really have 100 million+ visitors annually that we realize our data set has issues. When data set is large, it’s not as straightforward to figure out obvious data issues until we do some quick estimation checks.&lt;/p&gt;</content><author><name>Po-Yan Tsang</name></author><category term="machineLearning" /><summary type="html">MTA Turnstile Data Analysis is a group project where we are asked to provide recommendations to a non-profit organization to optimize street team positions at New York City MTA subway stations to gather emails and evangelize an upcoming gala event. The Data Sources We found MTA turnstile data at https://catalog.data.gov with a quick google search. It’s a pretty large data set, with ~10 million rows. We also grabbed the median income per zip codes in NYC from Census data for 2017. To figure out zip codes for the stations, we got a list of NYC MTA subway stations with names and corresponding geocodes, and then used Google API to find zip codes for the corresponding geocodes. Methodology We dug into the MTA turnsile data, cleaned the data to remove duplicates, bad data, and various things to enable analysis, and then we were able to provide the following analysis: Top 10 Subway Stations by annual foot traffic volume for 2018, while also pointing out stations in zipcodes with median household income &amp;gt; 100K Monthly pattern (which months are best) Weekly pattern (which day of the week) Daily pattern (time) Lessons Learned As part of the Metis classes, design thinking and a MVP approach was encouraged. I loved that since it’s an approach that is near and dear to my heart. It is something I’ve practiced daily in the past 5+ years at start-up. At a start-up, any product features we can deliver as soon as possible while delivering value to the customers is critical to the survival of the company. However, even with the MVP approach, as a total noob in exploratory data analysis of real world data, of course there are some great lessons learned: 1. Understand your data Despite the metadata descriptions that came along with the data, even though we know that the entries and exits are cumulative and can get reset, HOW and WHEN the numbers get reset turns out to be quite unpredictable and causes a great deal of data that skew the counts and provide confusing results. A lot of effort was needed to figure out a way to filter out the “bad” data. 2. Check results validity early! We didn’t realize the data skew issue above till relatively late in the project since guess what, we didn’t try to check if our initial results make sense until about half way through the project. It’s only when we start questioning whether the top 10 stations could really have 100 million+ visitors annually that we realize our data set has issues. When data set is large, it’s not as straightforward to figure out obvious data issues until we do some quick estimation checks.</summary></entry><entry><title type="html">Introduction</title><link href="http://localhost:8888/blog/intro" rel="alternate" type="text/html" title="Introduction" /><published>2019-01-12T00:00:00-08:00</published><updated>2019-01-12T00:00:00-08:00</updated><id>http://localhost:8888/blog/intro</id><content type="html" xml:base="http://localhost:8888/blog/intro">&lt;p&gt;This blog starts out as a way to record my adventures in learning data science, but it probably won’t be confined to data science topics.&lt;/p&gt;
+
+&lt;p&gt;I have been a product manager in both large software enterprise and start up for the past 14 years. It’s been a great rewarding experience, learning from really smart people, delivering software that millions of people use. However, during the course of my career, I also inadvertently get drawn to opportunities to write code even though I am not in a developer role. I also greatly enjoy digging into available product data to help make product decisions. As I see more software products making use of machine learning, I can’t help but want to learn more about data science and machine learning.&lt;/p&gt;
+
+&lt;p&gt;After taking a couple of data science courses on Coursera, I decided to make the jump in 2019 and enroll in a data science bootcamp at Metis to dig deeper into data science. No matter what career path I decide to take afterwards,  this is going to be a ton of fun for me, and I will be blogging as I go. I hope you have fun reading about it too.&lt;/p&gt;</content><author><name>Po-Yan Tsang</name></author><summary type="html">This blog starts out as a way to record my adventures in learning data science, but it probably won’t be confined to data science topics. I have been a product manager in both large software enterprise and start up for the past 14 years. It’s been a great rewarding experience, learning from really smart people, delivering software that millions of people use. However, during the course of my career, I also inadvertently get drawn to opportunities to write code even though I am not in a developer role. I also greatly enjoy digging into available product data to help make product decisions. As I see more software products making use of machine learning, I can’t help but want to learn more about data science and machine learning. After taking a couple of data science courses on Coursera, I decided to make the jump in 2019 and enroll in a data science bootcamp at Metis to dig deeper into data science. No matter what career path I decide to take afterwards, this is going to be a ton of fun for me, and I will be blogging as I go. I hope you have fun reading about it too.</summary></entry></feed>

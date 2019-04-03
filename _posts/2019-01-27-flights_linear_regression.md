@@ -1,11 +1,13 @@
 ---
 layout: post
 title: Flight Delay Prediction using Linear Regression
+subtitle:   "Fun with flights"
+date:       2019-01-27
+author:     "Po-Yan Tsang"
+header-img: 
+comments: true
+tags: [ machineLearning ]
 ---
-
-<p align="center">
-  <img src="../images/airplane.jpg">
-</p>
 
 Delayed aircraft are estimated to have cost the airlines several billion dollars in additional expense <sup>[1]</sup>, not to mention the uncertainty it adds to a passenger's travels. The goals of this project as part of the Metis week 2 & 3 project is to  predict flight delay time using linear regression based on 2017 United States flights data. Through the analysis, it should also shine a light on factors that impact flight delay time, and help others to develop mitigating strategies.
 
@@ -26,6 +28,8 @@ So three features remains to be used in model: 'Inbound Delay', 'Departure Time'
 No feature transform were needed when checking the residual plots, but y (Departure Delay) is noticed to be heavily left skewed and so is being log transformed before training.
 
 RidgeCV, LassoCV, ElasticNet Models were used in training, and RidgeCV was seen to have slightly better R2 scoring, and therefore chosen.
+
+For code see Github repository [here](https://github.com/pytgit/flight_delay_lin_regression).
 
 ## Results
 * Ridge linear regression yielded a relatively low R2 score: 0.234

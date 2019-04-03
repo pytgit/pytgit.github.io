@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Adventures in data science and misc fun things">
+
+    <title>Flight Delay Prediction using Linear Regression - Po-Yan Tsang</title>
+
+    <link rel="canonical" href="/blog/flights_linear_regression">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/clean-blog.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <link type="application/atom+xml" rel="alternate" href="http://localhost:8888/feed.xml" title="Po-Yan Tsang" />
+
+</head>
+
+
+<body>
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Po-Yan Tsang</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/">home</a>
+                </li>
+                <li>
+                    <a href="/blog/">blog</a>
+                </li>
+                <li>
+                    <a href="/search/" class="nav-search-link" title="SEARCH">
+                        <span class="fa fa-search nav-search-icon"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+
+    <!-- Post Header -->
+<header class="intro-header" style="background-image: url('/')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <h1>Flight Delay Prediction using Linear Regression</h1>
+                    
+                    <h2 class="subheading">Fun with flights</h2>
+                    
+                    <span class="meta" style='margin-top:0.5em;'>Posted by Po-Yan Tsang on Sunday, January 27, 2019
+                    </span>
+                    <span class="meta" style='margin-top:0.5em;'> Tags: <a href="/blog/tags/machineLearning"><i class="fa fa-tag"></i> machineLearning</a>  </span>
+                    <span class="meta" style='margin-top:0.5em;'>
+                        
+                        <i class="fa fa-clock-o"></i>&nbsp;
+                        2 minute read
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <p>Delayed aircraft are estimated to have cost the airlines several billion dollars in additional expense <sup>[1]</sup>, not to mention the uncertainty it adds to a passenger’s travels. The goals of this project as part of the Metis week 2 &amp; 3 project is to  predict flight delay time using linear regression based on 2017 United States flights data. Through the analysis, it should also shine a light on factors that impact flight delay time, and help others to develop mitigating strategies.</p>
+
+<h2 id="data-sources">Data Sources</h2>
+<ul>
+  <li>2017 Flight delay and cancellation data from <a href="https://www.transtats.bts.gov/DL_SelectFields.asp?Table_ID=236">Bureau of Transportation Statistics</a></li>
+  <li>2015 airport volume data scraped from Bureau of Transportation Statistics website: <a href="https://www.transtats.bts.gov/airports.asp?pn=1">Bureau of Transportation Statistics</a>, using beautifulsoup](https://pypi.org/project/beautifulsoup4/) <a href="Web_scraping_airport_volume.ipynb">code here</a></li>
+  <li>Historic airport weather data from Iowa State University website: <a href="https://mesonet.agron.iastate.edu/request/download.phtml?network=WA_ASOS">Iowa State Univerity Mesonet</a></li>
+</ul>
+
+<h2 id="methodology-used">Methodology Used</h2>
+<p>As the data set is quite huge (~5.3 million rows), the data set is randomly sampled to 50,000 rows for quicker modeling time in Python. Cross-validation with 5 folds is used on 80% of the data set to select features and model parameters.</p>
+
+<p>Initially the following features were considered: ‘Inbound Delay’, ‘Month’, ‘Airport Departure Volume’, ‘Plane Turnaround Time’,’Departure Time’,’Temperature’, ‘Wind Speed’, ‘Precipitation’.</p>
+
+<p>Then some features get zero-ed out in Lasso regressions and are removed, specifically: ‘Month’, ‘Airport Departure Volume’, ‘Plane Turnaround Time’, ‘Temperature’. ‘Wind Speed’ is further eliminated due to causing lower R2 score (indicating overfitting).</p>
+
+<p>So three features remains to be used in model: ‘Inbound Delay’, ‘Departure Time’, ‘Precipitation’.</p>
+
+<p>No feature transform were needed when checking the residual plots, but y (Departure Delay) is noticed to be heavily left skewed and so is being log transformed before training.</p>
+
+<p>RidgeCV, LassoCV, ElasticNet Models were used in training, and RidgeCV was seen to have slightly better R2 scoring, and therefore chosen.</p>
+
+<p>For code see Github repository <a href="https://github.com/pytgit/flight_delay_lin_regression">here</a>.</p>
+
+<h2 id="results">Results</h2>
+<ul>
+  <li>Ridge linear regression yielded a relatively low R2 score: 0.234</li>
+  <li>Out of the 3 features used, “Inbound delay” had the best predictive power (coefficient=0.145), compared with “Departure Time (coefficient=0.068), and “Precipitation” (coefficient=0.016)</li>
+</ul>
+
+<h2 id="conclusions">Conclusions</h2>
+<ul>
+  <li>Three factors ‘inbound delay’, “departure time”, “precipitation” are significant predictors of amount of departure delay, but are insufficient to reliably predict departure delay time (low R2 score)</li>
+  <li>Given the low R2 score, further predictive features should be explored, for example:
+    <ul>
+      <li>Around airport volume or airport “busy-ness” should be explored, for example:
+        <ul>
+          <li>Timeframes around public holidays</li>
+          <li>Hourly volume of an airport around flight departure time</li>
+        </ul>
+      </li>
+      <li>Further breakdown of how specific airline carrier can impact delay</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="references">References</h2>
+<ol>
+  <li>Airlines for America. http://airlines.org/dataset/per-minute-cost-of-delays-to-u-s-airlines/</li>
+</ol>
+
+                <br>
+                
+                    
+<div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+        this.page.url = https://pyblogs.disqus.com/blog/flights_linear_regression;
+        this.page.identifier = https://pyblogs.disqus.com/blog/flights_linear_regression;
+            };
+    (function() {  // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        
+        s.src = '//disqus_NoYoknEDDO.disqus.com/embed.js';
+        
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+
+                
+                <br>
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/blog/firstproject" data-toggle="tooltip" data-placement="top" title="NYC MTA Turnstile Data">&larr; Previous Post</a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/blog/startup_classification" data-toggle="tooltip" data-placement="top" title="Startups- Billion Dollars or Bust?">Next Post &rarr;</a>
+                    </li>
+                    
+                </ul>
+
+            </div>
+        </div>
+    </div>
+</article>
+<hr>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    
+                    
+                    
+                    <li>
+                        <a href="https://github.com/pytgit">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                    <li>
+                        <a href="https://www.linkedin.com/in/po-yan-tsang">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                
+                
+                    <br><br> Copyright &copy; Po-Yan Tsang 2019
+                  <br><br>Adapted Theme from <a href="https://github.com/shikherverma/shikherverma.github.io">CleanBlogEnhanced</a></p>
+                
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js"></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/clean-blog.min.js"></script>
+
+
+</body>
+    
+        <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-137588582-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+    
+</html>
