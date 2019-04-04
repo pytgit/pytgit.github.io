@@ -4,7 +4,7 @@ title: Flight Delay Prediction using Linear Regression
 subtitle:   "Fun with flights"
 date:       2019-01-27
 author:     "Po-Yan Tsang"
-header-img: 
+header-img:
 comments: true
 tags: [ machineLearning ]
 ---
@@ -19,7 +19,7 @@ Delayed aircraft are estimated to have cost the airlines several billion dollars
 ## Methodology Used
 As the data set is quite huge (~5.3 million rows), the data set is randomly sampled to 50,000 rows for quicker modeling time in Python. Cross-validation with 5 folds is used on 80% of the data set to select features and model parameters.
 
-Initially the following features were considered: 'Inbound Delay', 'Month', 'Airport Departure Volume', 'Plane Turnaround Time','Departure Time','Temperature', 'Wind Speed', 'Precipitation'.
+Initially the following features were considered: 'Inbound Delay', 'Month', 'Airport Departure Volume', 'Plane Turnaround Time', 'Departure Time', 'Temperature', 'Wind Speed', 'Precipitation'.
 
 Then some features get zero-ed out in Lasso regressions and are removed, specifically: 'Month', 'Airport Departure Volume', 'Plane Turnaround Time', 'Temperature'. 'Wind Speed' is further eliminated due to causing lower R2 score (indicating overfitting).
 
@@ -33,10 +33,10 @@ For code see Github repository [here](https://github.com/pytgit/flight_delay_lin
 
 ## Results
 * Ridge linear regression yielded a relatively low R2 score: 0.234
-* Out of the 3 features used, "Inbound delay" had the best predictive power (coefficient=0.145), compared with "Departure Time (coefficient=0.068), and "Precipitation" (coefficient=0.016)
+* Out of the 3 features used, 'Inbound delay' had the best predictive power (coefficient=0.145), compared with 'Departure Time' (coefficient=0.068), and 'Precipitation' (coefficient=0.016)
 
 ## Conclusions
-* Three factors 'inbound delay', "departure time", "precipitation" are significant predictors of amount of departure delay, but are insufficient to reliably predict departure delay time (low R2 score)
+* Three factors 'inbound delay', 'departure time', 'precipitation' are significant predictors of amount of departure delay, but are insufficient to reliably predict departure delay time (low R2 score)
 * Given the low R2 score, further predictive features should be explored, for example:
     * Around airport volume or airport "busy-ness" should be explored, for example:
       * Timeframes around public holidays
@@ -44,4 +44,4 @@ For code see Github repository [here](https://github.com/pytgit/flight_delay_lin
     * Further breakdown of how specific airline carrier can impact delay
 
 ## References
-1. Airlines for America. http://airlines.org/dataset/per-minute-cost-of-delays-to-u-s-airlines/
+1. Airlines for America. [link](http://airlines.org/dataset/per-minute-cost-of-delays-to-u-s-airlines/)

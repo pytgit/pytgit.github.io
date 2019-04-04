@@ -7,9 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Adventures in data science and misc fun things">
 
-    <title>Flight Delay Prediction using Linear Regression - Po-Yan Tsang</title>
+    <title>Mod-a-Recipe - Po-Yan Tsang</title>
 
-    <link rel="canonical" href="/blog/flights_linear_regression">
+    <link rel="canonical" href="/blog/mod-a-recipe">
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -69,16 +69,16 @@
 
 
     <!-- Post Header -->
-<header class="intro-header" style="background-image: url('/')">
+<header class="intro-header" style="background-image: url('/img/posts/ingredients.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                 <div class="post-heading">
-                    <h1>Flight Delay Prediction using Linear Regression</h1>
+                    <h1>Mod-a-Recipe</h1>
                     
-                    <h2 class="subheading">Fun with flights</h2>
+                    <h2 class="subheading">Fun with recipes (an NLP Project)</h2>
                     
-                    <span class="meta" style='margin-top:0.5em;'>Posted by Po-Yan Tsang on Sunday, January 27, 2019
+                    <span class="meta" style='margin-top:0.5em;'>Posted by Po-Yan Tsang on Wednesday, April 3, 2019
                     </span>
                     <span class="meta" style='margin-top:0.5em;'> Tags: <a href="/blog/tags/machineLearning"><i class="fa fa-tag"></i> machineLearning</a>  </span>
                     <span class="meta" style='margin-top:0.5em;'>
@@ -97,55 +97,53 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <p>Delayed aircraft are estimated to have cost the airlines several billion dollars in additional expense <sup>[1]</sup>, not to mention the uncertainty it adds to a passenger’s travels. The goals of this project as part of the Metis week 2 &amp; 3 project is to  predict flight delay time using linear regression based on 2017 United States flights data. Through the analysis, it should also shine a light on factors that impact flight delay time, and help others to develop mitigating strategies.</p>
+                <p>Mod-a-Recipe is developed as my capstone project at Metis data science immersive bootcamp, to combine my passions for cooking and natural language processing. The idea came from my own experience of always reviewing more than one recipe for a dish I had in mind to figure out what ingredients I can modify or swap out to suit my taste. Using natural language and machine learning techniques, similar recipes are found given a selected recipe, and suggestions on modifications are provided to make a recipe your ow</p>
 
-<h2 id="data-sources">Data Sources</h2>
+<h2 id="data-source">Data Source</h2>
+<p>Recipe data was scraped by <a href="https://eightportions.com/datasets/Recipes/">Eight Portions</a> (~80,000 recipes used here) from <a href="https://www.epicurious.com/">Epicurious</a>,<a href="https://www.allrecipes.com/">AllRecipes</a>, and <a href="https://www.foodnetwork.com/">FoodNetwork</a>.</p>
+
+<p>Also, tagged ingredients data is used from the NYTimes Ingredients Phrase Tagger project. <a href="https://github.com/NYTimes/ingredient-phrase-tagger">Github</a></p>
+
+<h2 id="code-at-github">Code at Github</h2>
+<p>Here is the github repo for this project: <a href="https://github.com/pytgit/mod-a-recipe">link</a></p>
+
+<h2 id="tools-used">Tools Used</h2>
+<p>Python is used for data acquisition, cleaning and modeling. Specific python libraries used include:</p>
 <ul>
-  <li>2017 Flight delay and cancellation data from <a href="https://www.transtats.bts.gov/DL_SelectFields.asp?Table_ID=236">Bureau of Transportation Statistics</a></li>
-  <li>2015 airport volume data scraped from Bureau of Transportation Statistics website: <a href="https://www.transtats.bts.gov/airports.asp?pn=1">Bureau of Transportation Statistics</a>, using beautifulsoup](https://pypi.org/project/beautifulsoup4/) <a href="Web_scraping_airport_volume.ipynb">code here</a></li>
-  <li>Historic airport weather data from Iowa State University website: <a href="https://mesonet.agron.iastate.edu/request/download.phtml?network=WA_ASOS">Iowa State Univerity Mesonet</a></li>
+  <li>Modeling: scikit-learn</li>
+  <li>Natural language processing: spaCy</li>
+  <li>Web application: Flask, PostgreSQL, Heroku</li>
 </ul>
 
 <h2 id="methodology-used">Methodology Used</h2>
-<p>As the data set is quite huge (~5.3 million rows), the data set is randomly sampled to 50,000 rows for quicker modeling time in Python. Cross-validation with 5 folds is used on 80% of the data set to select features and model parameters.</p>
-
-<p>Initially the following features were considered: ‘Inbound Delay’, ‘Month’, ‘Airport Departure Volume’, ‘Plane Turnaround Time’, ‘Departure Time’, ‘Temperature’, ‘Wind Speed’, ‘Precipitation’.</p>
-
-<p>Then some features get zero-ed out in Lasso regressions and are removed, specifically: ‘Month’, ‘Airport Departure Volume’, ‘Plane Turnaround Time’, ‘Temperature’. ‘Wind Speed’ is further eliminated due to causing lower R2 score (indicating overfitting).</p>
-
-<p>So three features remains to be used in model: ‘Inbound Delay’, ‘Departure Time’, ‘Precipitation’.</p>
-
-<p>No feature transform were needed when checking the residual plots, but y (Departure Delay) is noticed to be heavily left skewed and so is being log transformed before training.</p>
-
-<p>RidgeCV, LassoCV, ElasticNet Models were used in training, and RidgeCV was seen to have slightly better R2 scoring, and therefore chosen.</p>
-
-<p>For code see Github repository <a href="https://github.com/pytgit/flight_delay_lin_regression">here</a>.</p>
-
-<h2 id="results">Results</h2>
-<ul>
-  <li>Ridge linear regression yielded a relatively low R2 score: 0.234</li>
-  <li>Out of the 3 features used, ‘Inbound delay’ had the best predictive power (coefficient=0.145), compared with ‘Departure Time’ (coefficient=0.068), and ‘Precipitation’ (coefficient=0.016)</li>
-</ul>
-
-<h2 id="conclusions">Conclusions</h2>
-<ul>
-  <li>Three factors ‘inbound delay’, ‘departure time’, ‘precipitation’ are significant predictors of amount of departure delay, but are insufficient to reliably predict departure delay time (low R2 score)</li>
-  <li>Given the low R2 score, further predictive features should be explored, for example:
-    <ul>
-      <li>Around airport volume or airport “busy-ness” should be explored, for example:
-        <ul>
-          <li>Timeframes around public holidays</li>
-          <li>Hourly volume of an airport around flight departure time</li>
-        </ul>
-      </li>
-      <li>Further breakdown of how specific airline carrier can impact delay</li>
-    </ul>
-  </li>
-</ul>
-
-<h2 id="references">References</h2>
 <ol>
-  <li>Airlines for America. <a href="http://airlines.org/dataset/per-minute-cost-of-delays-to-u-s-airlines/">link</a></li>
+  <li>
+    <p>Data set from the three data sources (Epicurious, AllRecipes, Foodnetwork) are merged into one, and data cleaned to remove irrelevant information. (refer to code <a href="https://github.com/pytgit/mod-a-recipe/blob/master/src/data/make_dataset.py">here</a>)</p>
+  </li>
+  <li>
+    <p>Using 2000 rows of tagged ingredients list data from the <a href="https://github.com/NYTimes/ingredient-phrase-tagger">NYTimes Ingredients Phrase Tagger project</a> and 200 rows of manually tagged data from the <a href="https://eightportions.com/datasets/Recipes/">Eight Portions</a> data set, the spaCy NER model is trained to recognize ingredients from ingredients list text.</p>
+  </li>
+  <li>
+    <p>Using the trained spaCy NER model, ~40,000 unique ingredients were extracted from the ingredients list of the recipes data. (refer to code <a href="https://github.com/pytgit/mod-a-recipe/blob/master/src/models/train_model-nlp.py and src/features/build_features.py">here</a>)</p>
+  </li>
+  <li>Topic modeling technique (TFIDF word vector with non-negative matrix factorization) is then used to reduce dimensionality such that similar recipes can be calculated using cosine similarity. The NMF yielded 50 topics were seemed to be representative of certain types of recipes. For example:
+    <blockquote>
+      <p>Topic 1 (Asian recipes): soy sauce, sesame oil, green onion, ginger, sesame seed, rice vinegar, ginger root, scallion, rice wine vinegar, peanut oil</p>
+    </blockquote>
+
+    <blockquote>
+      <p>Topic 2 (baking): unsalted butter, pure vanilla extract, whole milk, light brown sugar, fine salt, nutmeg, shallot, kosher salt and freshly ground pepper, extra-large egg, semisweet chocolate</p>
+    </blockquote>
+
+    <p>(refer to code <a href="https://github.com/pytgit/mod-a-recipe/blob/master/src/models/train_model.py">here</a>)</p>
+  </li>
+  <li>Similar recipes were found as a result, and differences in ingredients lists are highlighted as possible substitutions or enhancements to the selected recipe. Check out the Flask application with sample results on <a href="https://mod-a-recipe.herokuapp.com/">Mod-a-recipe</a></li>
+</ol>
+
+<h2 id="resources">Resources</h2>
+<ol>
+  <li>NYTimes Ingredients Phrase Tagger. <a href="https://github.com/NYTimes/ingredient-phrase-tagger">Github</a></li>
+  <li>Eight Portions (for recipes data). <a href="https://eightportions.com/datasets/Recipes/">Data set</a></li>
 </ol>
 
                 <br>
@@ -154,8 +152,8 @@
 <div id="disqus_thread"></div>
 <script>
     var disqus_config = function () {
-        this.page.url = https://pyblogs.disqus.com/blog/flights_linear_regression;
-        this.page.identifier = https://pyblogs.disqus.com/blog/flights_linear_regression;
+        this.page.url = https://pyblogs.disqus.com/blog/mod-a-recipe;
+        this.page.identifier = https://pyblogs.disqus.com/blog/mod-a-recipe;
             };
     (function() {  // DON'T EDIT BELOW THIS LINE
         var d = document, s = d.createElement('script');
@@ -174,13 +172,9 @@
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/blog/firstproject" data-toggle="tooltip" data-placement="top" title="NYC MTA Turnstile Data">&larr; Previous Post</a>
+                        <a href="/blog/movies-genre-prediction" data-toggle="tooltip" data-placement="top" title="What genre is this movie?">&larr; Previous Post</a>
                     </li>
                     
-                    
-                    <li class="next">
-                        <a href="/blog/startup_classification" data-toggle="tooltip" data-placement="top" title="Startups- Billion Dollars or Bust?">Next Post &rarr;</a>
-                    </li>
                     
                 </ul>
 
