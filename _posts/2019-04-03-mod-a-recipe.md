@@ -9,15 +9,15 @@ comments: true
 tags: [ machineLearning ]
 ---
 
-Mod-a-Recipe is developed as my capstone project at Metis data science immersive bootcamp, to combine my passions for cooking and natural language processing. The idea came from my own experience of always reviewing more than one recipe for a dish I had in mind to figure out what ingredients I can modify or swap out to suit my taste. Using natural language and machine learning techniques, similar recipes are found given a selected recipe, and suggestions on modifications are provided to make a recipe your ow
+Mod-a-Recipe is developed as my capstone project at Metis data science immersive bootcamp, to combine my passions for cooking and natural language processing. The idea came from my own experience of always reviewing more than one recipe for a dish I had in mind to figure out what ingredients I can modify or swap out to suit my taste. Using natural language and machine learning techniques, similar recipes are found given a selected recipe, and suggestions on modifications are provided to make a recipe your own.
 
 ## Data Source
 Recipe data was scraped by [Eight Portions](https://eightportions.com/datasets/Recipes/) (~80,000 recipes used here) from [Epicurious](https://www.epicurious.com/),[AllRecipes](https://www.allrecipes.com/), and [FoodNetwork](https://www.foodnetwork.com/).
 
-Also, tagged ingredients data is used from the NYTimes Ingredients Phrase Tagger project. [Github](https://github.com/NYTimes/ingredient-phrase-tagger)
+Also, tagged ingredients data is used from the NYTimes Ingredients Phrase Tagger project [see Github](https://github.com/NYTimes/ingredient-phrase-tagger).
 
 ## Code at Github
-Here is the github repo for this project: [link](https://github.com/pytgit/mod-a-recipe)
+Here is the github repo for this project: [link](https://github.com/pytgit/mod-a-recipe).
 
 ## Tools Used
 Python is used for data acquisition, cleaning and modeling. Specific python libraries used include:
