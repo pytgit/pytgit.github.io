@@ -41,7 +41,7 @@ java -Xmx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -serverPrope
 ## Methodology Used
 * I started with the usual pre-processing steps: removing stop words, punctuations. I found a list of Chinese stopwords from [Stopwords ISO](https://github.com/stopwords-iso/stopwords-zh/blob/master/stopwords-zh.txt).
 
-* I then used CoreNLP's Tokenizer to tokenize Chinese text. Hey, it works similar to tokenizing English, when you run a tokenizer to separate out "words" or sequence of characters in Chinese case in a sentence! Here's a tokenization example:
+* I then used CoreNLP's Tokenizer to tokenize Chinese text. Hey, it works similar to tokenizing English! When you run a tokenizer to separate out "words", in Chinese's case a sequence of characters gets "tokenized"/segmented. Here's a tokenization example:
 
 > Original Text: '应付抄写作业，中国学生购买“写字机器人'
 
