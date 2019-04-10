@@ -63,8 +63,8 @@ java -Xmx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -serverPrope
 Stanford CoreNLP is a natural language toolkit that supports parsing Chinese, and it was relatively easy to set up and get it running. NLP steps I learned to use on English such as tokenizing, removing stopwords and punctuations are same for Chinese. When reading about how Chinese word tokenization/segmentation works, I learned that different NLP applications have different needs for segmentation/tokenization, and so the methods may need to be optimized differently depending on usage [5]. There is more to learn there but that will be an investigation for another time.
 
 ## Resources
-1. Stanford CoreNLP: Introduction. [link](http://www.sfs.uni-tuebingen.de/~keberle/NLPTools/presentations/CoreNLP/CoreNLP_introduction.pdf)
-2. Stanford CoreNLP API in NLTK. [link](https://github.com/nltk/nltk/wiki/Stanford-CoreNLP-API-in-NLTK)
-3. All languages stopwords collection. [link](https://github.com/stopwords-iso/stopwords-zh/blob/master/stopwords-zh.txt)
-4. Using Regular Expression to Filter Chinese. [link](https://chenyuzuoo.github.io/posts/28001/)
-5. Optimizing Chinese Word Segmentation for Machine Translation Performance. [link](https://nlp.stanford.edu/pubs/acl-wmt08-cws.pdf)
+1. Stanford CoreNLP: Introduction [link](http://www.sfs.uni-tuebingen.de/~keberle/NLPTools/presentations/CoreNLP/CoreNLP_introduction.pdf).
+2. Stanford CoreNLP API in NLTK [link](https://github.com/nltk/nltk/wiki/Stanford-CoreNLP-API-in-NLTK).
+3. All languages stopwords collection [link](https://github.com/stopwords-iso/stopwords-zh/blob/master/stopwords-zh.txt).
+4. Using Regular Expression to Filter Chinese [link](https://chenyuzuoo.github.io/posts/28001/).
+5. Optimizing Chinese Word Segmentation for Machine Translation Performance [link](https://nlp.stanford.edu/pubs/acl-wmt08-cws.pdf).
