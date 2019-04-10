@@ -39,15 +39,16 @@ java -Xmx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -serverPrope
 ```
 
 ## Methodology Used
-1. I started with the usual pre-processing steps: removing stop words, punctuations. I found a list of Chinese stopwords from [Stopwords ISO](https://github.com/stopwords-iso/stopwords-zh/blob/master/stopwords-zh.txt).
+* I started with the usual pre-processing steps: removing stop words, punctuations. I found a list of Chinese stopwords from [Stopwords ISO](https://github.com/stopwords-iso/stopwords-zh/blob/master/stopwords-zh.txt).
 
-2. I then used CoreNLP's Tokenizer to tokenize Chinese text. Hey, it works similar to tokenizing English, when you run a tokenizer to separate out "words" or sequence of characters in Chinese case in a sentence! Here's a tokenization example:
+* I then used CoreNLP's Tokenizer to tokenize Chinese text. Hey, it works similar to tokenizing English, when you run a tokenizer to separate out "words" or sequence of characters in Chinese case in a sentence! Here's a tokenization example:
 
 > Original Text: '应付抄写作业，中国学生购买“写字机器人'
 
 > After Tokenization: '应付', '抄写', '作业', '中国', '学生', '购买', '写字', '机器人'
 
-3. Topic modeling technique (TFIDF word vector with non-negative matrix factorization) is then used to tease out groups of words that often appear with each other in a paragraph. Here are two sample topics resulted out of 10 topics:
+
+* Topic modeling technique (TFIDF word vector with non-negative matrix factorization) is then used to tease out groups of words that often appear with each other in a paragraph. Here are two sample topics resulted out of 10 topics:
 
 > *Sample topic 1 from Chinese text:* 大多数, 同情, 深刻, 曾经, 不一, 无数, 重复, 印象, 意见, 似乎
 
@@ -56,6 +57,7 @@ java -Xmx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -serverPrope
 > *Sample topic 2 from Chinese text:* 区别, 小姑娘, 制造, 动物, 人和, 评论, 步, 已经, 工具, 第一
 
 > *Sample topic 2 from English text:* young, animals, reasoned, difference, humans, knows, lady, tools, know, make
+
 
 ## Conclusions
 Stanford CoreNLP is a natural language toolkit that supports parsing Chinese, and it was relatively easy to set up and get it running. NLP steps I learned to use on English such as tokenizing, removing stopwords and punctuations are same for Chinese. When reading about how Chinese word tokenization/segmentation works, I learned that different NLP applications have different needs for segmentation/tokenization, and so the methods may need to be optimized differently depending on usage [5]. There is more to learn there but that will be an investigation for another time.
