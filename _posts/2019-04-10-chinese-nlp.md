@@ -34,29 +34,29 @@ Python was used. I used scikit-learn for topic modeling, but picked [Stanford's 
 * NTLK supports interface with the web service in Python
 * Run as a web service. For example, to start a service specifically for parsing Chinese:
 
-```console
-java -Xmx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -serverProperties StanfordCoreNLP-chinese.properties -preload tokenize,ssplit,pos,lemma,ner,parse -status_port 9001  -port 9001 -timeout 15000
-```
+  ```console
+  java -Xmx4g -cp "*" edu.stanford.nlp.pipeline.StanfordCoreNLPServer -serverProperties StanfordCoreNLP-chinese.properties -preload tokenize,ssplit,pos,lemma,ner,parse -status_port 9001  -port 9001 -timeout 15000
+  ```
 
 ## Methodology Used
 * I started with the usual pre-processing steps: removing stop words, punctuations. I found a list of Chinese stopwords from [Stopwords ISO](https://github.com/stopwords-iso/stopwords-zh/blob/master/stopwords-zh.txt).
 
 * I then used CoreNLP's Tokenizer to tokenize Chinese text. Hey, it works similar to tokenizing English! When you run a tokenizer to separate out "words", in Chinese's case a sequence of characters gets "tokenized"/segmented. Here's a tokenization example:
 
-> Original Text: '应付抄写作业，中国学生购买“写字机器人'
+  > Original Text: '应付抄写作业，中国学生购买“写字机器人'
 
-> After Tokenization: '应付', '抄写', '作业', '中国', '学生', '购买', '写字', '机器人'
+  > After Tokenization: '应付', '抄写', '作业', '中国', '学生', '购买', '写字', '机器人'
 
 
 * Topic modeling technique (TFIDF word vector with non-negative matrix factorization) is then used to tease out groups of words that often appear with each other in a paragraph. Here are two sample topics resulted out of 10 topics:
 
-> *Sample topic 1 from Chinese text:* 大多数, 同情, 深刻, 曾经, 不一, 无数, 重复, 印象, 意见, 似乎
+  > *Sample topic 1 from Chinese text:* 大多数, 同情, 深刻, 曾经, 不一, 无数, 重复, 印象, 意见, 似乎
 
-> *Sample topic 1 from English text:* suffered, appeared, sympathetic, hours, split, commenters, platform, popular, impressed, similar
+  > *Sample topic 1 from English text:* suffered, appeared, sympathetic, hours, split, commenters, platform, popular, impressed, similar
 
-> *Sample topic 2 from Chinese text:* 区别, 小姑娘, 制造, 动物, 人和, 评论, 步, 已经, 工具, 第一
+  > *Sample topic 2 from Chinese text:* 区别, 小姑娘, 制造, 动物, 人和, 评论, 步, 已经, 工具, 第一
 
-> *Sample topic 2 from English text:* young, animals, reasoned, difference, humans, knows, lady, tools, know, make
+  > *Sample topic 2 from English text:* young, animals, reasoned, difference, humans, knows, lady, tools, know, make
 
 
 ## Conclusions

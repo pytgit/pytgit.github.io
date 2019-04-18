@@ -13,7 +13,7 @@ Delayed aircraft are estimated to have cost the airlines several billion dollars
 
 ## Data Sources
 * 2017 Flight delay and cancellation data from [Bureau of Transportation Statistics](https://www.transtats.bts.gov/DL_SelectFields.asp?Table_ID=236)
-* 2015 airport volume data scraped from Bureau of Transportation Statistics website: [Bureau of Transportation Statistics](https://www.transtats.bts.gov/airports.asp?pn=1), using beautifulsoup](https://pypi.org/project/beautifulsoup4/) [code here](Web_scraping_airport_volume.ipynb)
+* 2015 airport volume data scraped from Bureau of Transportation Statistics website: [Bureau of Transportation Statistics](https://www.transtats.bts.gov/airports.asp?pn=1), using [beautifulsoup](https://pypi.org/project/beautifulsoup4/) [(code here)](Web_scraping_airport_volume.ipynb)
 * Historic airport weather data from Iowa State University website: [Iowa State Univerity Mesonet](https://mesonet.agron.iastate.edu/request/download.phtml?network=WA_ASOS)
 
 ## Methodology Used
