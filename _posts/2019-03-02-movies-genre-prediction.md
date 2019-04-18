@@ -35,19 +35,14 @@ Python is used for data acquisition, cleaning and modeling. Specific python libr
 
 2. Data is randomly sampled from ~30,000 to 10,000 with weights biased towards lower count genres for NLP processing and training speed.
 
-3. Each sentence in a movie plot text is then evaluated for sentiment using NTLK's vader analyzer. The results are then averaged to be treated as a sentiment feature for that movie entry.
+3. Each sentence in a movie plot text is then evaluated for sentiment using NTLK's vader analyzer. The results are then averaged to be treated as a sentiment feature for that movie entry. (See Jupyter notebook for steps 1-3: [(code here)](https://github.com/pytgit/movies_genre_nlp/blob/master/Movies%20-%20clean%20and%20feature%20extraction.ipynb) )
+4. Topic modeling is used to reduce the dimensionality of word features to be used in classification training. Before topic modeling can be done, stopwords, punctuations, and entities were removed from the movie plot text. The text is also tokenized and lemmatized.
 
-  (See Jupyter notebook for steps 1-3: [(code here)](https://github.com/pytgit/movies_genre_nlp/blob/master/Movies%20-%20clean%20and%20feature%20extraction.ipynb) )
-
-5. Topic modeling is used to reduce the dimensionality of word features to be used in classification training. Before topic modeling can be done, stopwords, punctuations, and entities were removed from the movie plot text. The text is also tokenized and lemmatized.
-
-6. Both Non-negative Matrix Factorization (NMF) and Latent Semantic Analysis (LSA) topic modeling were tried. They gave similar results when used in supervised classification modeling later, but I decided to use NMF in the final model because the topics were more interpretable than the LSA ones. THE NMF yielded 25 topics were seemed to be representative of certain genres. For example:
+5. Both Non-negative Matrix Factorization (NMF) and Latent Semantic Analysis (LSA) topic modeling were tried. They gave similar results when used in supervised classification modeling later, but I decided to use NMF in the final model because the topics were more interpretable than the LSA ones. THE NMF yielded 25 topics were seemed to be representative of certain genres. For example:
    * Topic 1	(Romance): love, fall love, fall, marry, marriage, girl, meet, friend, wedding, story
    * Topic 2	 (Sci-Fi): alien, planet, spaceship, human, saucer, destroy, space, base, ship, scientist
-
-  (See Jupyter notebook for steps 5,6: [(code here)](https://github.com/pytgit/movies_genre_nlp/blob/master/Movies-%20topic%20modeling.ipynb) )
-
-7. For final genre prediction, Random Forest, KNN and Gradient Boost. Random Forest gave slighly better results than GradientBoost so that was chosen as final model. See Jupyter notebook for steps [(code here)](https://github.com/pytgit/movies_genre_nlp/blob/master/Supervised%20Model%20Training.ipynb)
+   (See Jupyter notebook for steps 5,6: [(code here)](https://github.com/pytgit/movies_genre_nlp/blob/master/Movies-%20topic%20modeling.ipynb))
+6. For final genre prediction, Random Forest, KNN and Gradient Boost. Random Forest gave slighly better results than GradientBoost so that was chosen as final model. See Jupyter notebook for steps [(code here)](https://github.com/pytgit/movies_genre_nlp/blob/master/Supervised%20Model%20Training.ipynb)
 
 ## Results
 * Random Forest yielded the best F1 weighted score of 0.43 on test data set
