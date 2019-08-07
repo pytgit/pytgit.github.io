@@ -39,7 +39,7 @@ Python is used for data acquisition, cleaning and modeling. Specific python libr
 
    (refer to code [here](https://github.com/pytgit/mod-a-recipe/blob/master/src/models/train_model.py))
 
-5. Similar recipes were found as a result, and differences in ingredients lists are highlighted as possible substitutions or enhancements to the selected recipe. Check out the [Flask application](https://mod-a-recipe.herokuapp.com/) with sample results on [https://mod-a-recipe.herokuapp.com/](https://mod-a-recipe.herokuapp.com/).
+5. Similar recipes were found as a result, and differences in ingredients lists are highlighted as possible substitutions or enhancements to the selected recipe. 
 
 ## Resources
 1. NYTimes Ingredients Phrase Tagger [Github](https://github.com/NYTimes/ingredient-phrase-tagger).
